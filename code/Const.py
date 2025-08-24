@@ -1,9 +1,11 @@
+import pygame.constants
 
 #C
 COLOR_RED = (250,0,0)
 COLOR_WHITE = (255,255,255)
 
 # E
+EVENT_ENEMY = pygame.USEREVENT + 1
 ENTITY_SPEED = {
     'Level1Bg0': 1,
     'Level1Bg1': 1,
@@ -15,9 +17,8 @@ ENTITY_SPEED = {
     'Level2Bg2': 2,
     'Level2Bg3': 3,
     'Level2Bg4': 4,
-    'Player1': 3,
-    'Player2': 3,
-    'Enemy1': 1,
+    'Player1': 4,
+    'Enemy1': 2,
     'Enemy2': 1,
 
 }
@@ -26,7 +27,8 @@ ENTITY_SPEED = {
 MENU_OPTION = ('NEW GAME',
                'SCORE',
                'EXIT')
-
+# S
+SPAWN_TIME = 4000
 #W
 
 WIN_WIDTH = 800
