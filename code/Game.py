@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import pygame
 
-from code.Const import WIN_HEIGHT, WIN_WIDTH, MENU_OPTION
+from code.Const import WIN_HEIGHT, WIN_WIDTH, MENU_OPTION, ENTITY_SPEED
 from code.Level import Level
 from code.Menu import Menu
 from code.Score import Score
@@ -20,6 +20,7 @@ class Game:
             menu_return = menu.run()
 
             if menu_return in MENU_OPTION[0]:
+                ENTITY_SPEED['Enemy1'] = 1
                 player_score = [0]
                 level = Level(self.window, 'Level1', menu_return, player_score)
                 level_return = level.run(player_score)

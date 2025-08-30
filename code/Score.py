@@ -7,7 +7,7 @@ from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import SurfaceType, Surface
 
-from code.Const import COLOR_RED, SCORE_POS, MENU_OPTION, COLOR_WHITE
+from code.Const import COLOR_RED, SCORE_POS, MENU_OPTION, COLOR_WHITE, COLOR_YELLOW
 from code.DBProxy import DBProxy
 
 
@@ -30,7 +30,7 @@ class Score:
             self.score_text(100, 'YOU WIN', COLOR_RED, SCORE_POS['Title'])
             if game_mode == MENU_OPTION[0]:
                 score = player_score[0]
-                text = 'Player 1 Enter your Name (4 characters):'
+                text = 'Player Enter your Name (4 characters):'
             if game_mode == MENU_OPTION[1]:
                 score = player_score[0]
                 text = 'Enter Player Name (4 characters):'
@@ -59,15 +59,15 @@ class Score:
         pygame.mixer_music.load('./Asset/Score.mp3')  # carrega a música de fundo
         pygame.mixer_music.play(-1)
         self.window.blit(source=self.surf, dest=self.rect)
-        self.score_text(48, 'TOP 10 SCORE', COLOR_RED, SCORE_POS['Title'])
-        self.score_text(20, 'NAME     SCORE           DATE      ', COLOR_RED, SCORE_POS['Label'])
+        self.score_text(68, 'TOP 10 SCORE', COLOR_RED, SCORE_POS['Title'])
+        self.score_text(40, 'NAME              SCORE            DATE         ', COLOR_YELLOW, SCORE_POS['Label'])
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()
         db_proxy.close()
 
         for player_score in list_score:
             id_, name, score, date = player_score
-            self.score_text(20, f'{name}     {score:05d}     {date}', COLOR_RED,
+            self.score_text(30, f' {name}                          {score:05d}                   {date}', COLOR_RED,
                             SCORE_POS[list_score.index(player_score)])
         while True:
             for event in pygame.event.get():

@@ -39,7 +39,7 @@ class Player(Entity):
             if self.rect.colliderect(fish.rect):
                 fish.rect.left = WIN_WIDTH  # reposiciona peixe
                 fish.rect.top = random.randint(50, WIN_HEIGHT - 50)
-                self.score += 1
+                self.score += 2
                 if self.score == 20 or self.score == 40 or self.score == 100:
                     self.health +=1
 
@@ -48,7 +48,9 @@ class Player(Entity):
             if self.rect.colliderect(lula.rect):
                 lula.rect.left = WIN_WIDTH  # reposiciona peixe
                 lula.rect.top = random.randint(50, WIN_WIDTH - 50)
-                self.score += 10
+                self.score += 2
+                if self.score == 20 or self.score == 40 or self.score == 100:
+                    self.health +=1
 
 
 

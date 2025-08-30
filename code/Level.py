@@ -9,7 +9,7 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 
 from code.Const import COLOR_WHITE, WIN_HEIGHT, EVENT_ENEMY, SPAWN_TIME, WIN_WIDTH, EVENT_TIMEOUT, TIMEOUT_STEP, \
-    TIMEOUT_LEVEL
+    TIMEOUT_LEVEL, ENTITY_SPEED
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.Player import Player
@@ -30,10 +30,14 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
-        player = EntityFactory.get_entity('Player1') ###
+        player = EntityFactory.get_entity('Player1')
         player.score = player_score[0] ###
         self.entity_list.append(player)
-        self.entity_list.append(EntityFactory.get_entity('Enemy1', position=(WIN_WIDTH + 10, 100)))#
+        self.entity_list.append(EntityFactory.get_entity('Enemy1', position=(WIN_WIDTH + 10, 20)))#
+        # velocidade inicial dos inimigos
+        self.enemy_speed = ENTITY_SPEED['Enemy1']  # pega a velocidade inicial do Const
+        self.last_increase_time = pygame.time.get_ticks()
+        self.increase_interval = 20000  # 20 segundos
         self.fish_list = []
         self.lula_list = []
         for _ in range(4):
@@ -53,12 +57,18 @@ class Level:
 
         while True:
             clock.tick(60)  # FPS
-
+            # verifica se já passou o intervalo para aumentar a dificuldade
             #  Desenha e move todas as entidades
             for ent in self.entity_list:
                 self.window.blit(ent.surf, ent.rect)
                 ent.move()
-
+            # --- Aumenta a velocidade dos inimigos a cada 10s ---
+            current_time = pygame.time.get_ticks()
+            if current_time - self.last_increase_time > self.increase_interval:
+                self.enemy_speed += 2
+                ENTITY_SPEED['Enemy1'] = self.enemy_speed  # <<< Atualiza no Const
+                self.last_increase_time = current_time
+                print("Velocidade dos inimigos aumentou para:", self.enemy_speed)
             #  Verifica colisão Player x Enemy
             player = next((e for e in self.entity_list if e.name == 'Player1'), None)
             if player:
@@ -96,6 +106,7 @@ class Level:
 
                         return True
 
+
                 # Gerar inimigos
                 if event.type == EVENT_ENEMY:
                     existing_enemies = [e for e in self.entity_list if e.name == 'Enemy1']
@@ -104,7 +115,7 @@ class Level:
                         new_y = random.randint(40, WIN_HEIGHT - 40)
                         if is_far_enough(new_y, existing_enemies):
                             self.entity_list.append(
-                                EntityFactory.get_entity('Enemy1', position=(WIN_WIDTH + 10, new_y))
+                                EntityFactory.get_entity(entity_name='Enemy1', position=(WIN_WIDTH + 50, new_y))
                             )
                             break  # encontrou posição segura, sai do loop
 
