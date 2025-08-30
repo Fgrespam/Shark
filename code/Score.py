@@ -5,14 +5,13 @@ import pygame
 from pygame.constants import KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.font import Font
 from pygame.rect import Rect
-from pygame.surface import SurfaceType, Surface
+from pygame.surface import Surface
 
 from code.Const import COLOR_RED, SCORE_POS, MENU_OPTION, COLOR_WHITE, COLOR_YELLOW
 from code.DBProxy import DBProxy
 
 
 class Score:
-
 
     def __init__(self, window: Surface):
         self.window = window
@@ -35,12 +34,12 @@ class Score:
                 score = player_score[0]
                 text = 'Enter Player Name (4 characters):'
 
-            self.score_text(50, text, COLOR_WHITE, SCORE_POS['EnterName']) # Para fechar a janela
+            self.score_text(50, text, COLOR_WHITE, SCORE_POS['EnterName'])  # Para fechar a janela
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == KEYDOWN: # qualquer tecla digitada
+                elif event.type == KEYDOWN:  # qualquer tecla digitada
                     if event.key == K_RETURN and len(name) == 4:
                         db_proxy.save({'name': name, 'score': score, 'date': get_formatted_date()})
                         self.show()
@@ -53,7 +52,6 @@ class Score:
             self.score_text(50, name, COLOR_RED, SCORE_POS['Name'])
             pygame.display.flip()
             pass
-
 
     def show(self):
         pygame.mixer_music.load('./Asset/Score.mp3')  # carrega a música de fundo
@@ -80,12 +78,12 @@ class Score:
 
             pygame.display.flip()
 
-
     def score_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont('./Asset/Amity Jack.ttf', size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
+
 
 def get_formatted_date():
     current_datetime = datetime.now()

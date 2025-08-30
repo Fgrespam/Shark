@@ -18,11 +18,11 @@ class Player(Entity):
 
     def move(self, ):
         pressed_key = pygame.key.get_pressed()
-        if pressed_key [pygame.K_UP] and self.rect.top > 0:
+        if pressed_key[pygame.K_UP] and self.rect.top > 0:
             self.rect.centery -= ENTITY_SPEED[self.name]
-        if pressed_key [pygame.K_DOWN] and self.rect.bottom < WIN_HEIGHT:
+        if pressed_key[pygame.K_DOWN] and self.rect.bottom < WIN_HEIGHT:
             self.rect.centery += ENTITY_SPEED[self.name]
-        if pressed_key [pygame.K_LEFT] and self.rect.left > 0:
+        if pressed_key[pygame.K_LEFT] and self.rect.left > 0:
             self.rect.centerx -= ENTITY_SPEED[self.name]
         if pressed_key[pygame.K_RIGHT] and self.rect.right < WIN_WIDTH:
             self.rect.centerx += ENTITY_SPEED[self.name]
@@ -41,7 +41,7 @@ class Player(Entity):
                 fish.rect.top = random.randint(50, WIN_HEIGHT - 50)
                 self.score += 2
                 if self.score == 20 or self.score == 40 or self.score == 100:
-                    self.health +=1
+                    self.health += 1
 
     def eat2(self, lula_list):
         for lula in lula_list:
@@ -50,9 +50,6 @@ class Player(Entity):
                 lula.rect.top = random.randint(50, WIN_WIDTH - 50)
                 self.score += 2
                 if self.score == 20 or self.score == 40 or self.score == 100:
-                    self.health +=1
-
-
-
+                    self.health += 1
 
         pass

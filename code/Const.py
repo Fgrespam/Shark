@@ -1,9 +1,9 @@
 import pygame.constants
 
-#C
-COLOR_RED = (250,0,0)
-COLOR_WHITE = (255,255,255)
-COLOR_YELLOW = (255,255,0)
+# C
+COLOR_RED = (250, 0, 0)
+COLOR_WHITE = (255, 255, 255)
+COLOR_YELLOW = (255, 255, 0)
 
 # E
 EVENT_ENEMY = pygame.USEREVENT + 1
@@ -19,7 +19,7 @@ ENTITY_SPEED = {
     'Level2Bg1': 0,
     'Player1': 4,
     'Enemy1': 1,
-    }
+}
 
 # M
 MENU_OPTION = ('NEW GAME',
@@ -28,12 +28,11 @@ MENU_OPTION = ('NEW GAME',
 # S
 SPAWN_TIME = 5000
 
-
 # T
-TIMEOUT_STEP = 100 #100 ms
-TIMEOUT_LEVEL =60000 #Tempo da fase
+TIMEOUT_STEP = 100  # 100 ms
+TIMEOUT_LEVEL = 60000  # Tempo da fase
 
-#W
+# W
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 533

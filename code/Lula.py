@@ -1,6 +1,8 @@
-from code.Entity import Entity
-from code.Const import WIN_WIDTH, WIN_HEIGHT
 import random
+
+from code.Const import WIN_WIDTH, WIN_HEIGHT
+from code.Entity import Entity
+
 
 class Lula(Entity):
     def __init__(self, name: str, position: tuple):

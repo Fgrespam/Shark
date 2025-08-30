@@ -24,16 +24,16 @@ def is_far_enough(new_y, existing_enemies, min_distance=100):
 
 class Level:
     def __init__(self, window: Surface, name: str, game_mode: str, player_score: list[int]):
-        self.timeout = TIMEOUT_LEVEL #### 20 segundos
+        self.timeout = TIMEOUT_LEVEL  #### 20 segundos
         self.window = window
         self.name = name
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
         player = EntityFactory.get_entity('Player1')
-        player.score = player_score[0] ###
+        player.score = player_score[0]  ###
         self.entity_list.append(player)
-        self.entity_list.append(EntityFactory.get_entity('Enemy1', position=(WIN_WIDTH + 10, 20)))#
+        self.entity_list.append(EntityFactory.get_entity('Enemy1', position=(WIN_WIDTH + 10, 20)))  #
         # velocidade inicial dos inimigos
         self.enemy_speed = ENTITY_SPEED['Enemy1']  # pega a velocidade inicial do Const
         self.last_increase_time = pygame.time.get_ticks()
@@ -47,7 +47,7 @@ class Level:
             self.lula_list.append(EntityFactory.get_entity('Lula1'))
         self.entity_list.extend(self.lula_list)
         pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
-        pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP) #100ms
+        pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 100ms
 
     def run(self, player_score: list[int]):
         # toca a música do nível
@@ -97,7 +97,7 @@ class Level:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == EVENT_TIMEOUT: ###
+                if event.type == EVENT_TIMEOUT:  ###
                     self.timeout -= TIMEOUT_STEP
                     if self.timeout == 0:
                         for ent in self.entity_list:
@@ -105,7 +105,6 @@ class Level:
                                 player_score[0] = ent.score
 
                         return True
-
 
                 # Gerar inimigos
                 if event.type == EVENT_ENEMY:
@@ -121,8 +120,8 @@ class Level:
 
             # Exibe informações do nível
             self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', COLOR_WHITE, (10, 5))
-           # self.level_text(14, f'fps: {clock.get_fps():.0f}', COLOR_WHITE, (10, WIN_HEIGHT - 35))
-           # self.level_text(14, f'entidades: {len(self.entity_list)}', COLOR_WHITE, (10, WIN_HEIGHT - 20))
+            # self.level_text(14, f'fps: {clock.get_fps():.0f}', COLOR_WHITE, (10, WIN_HEIGHT - 35))
+            # self.level_text(14, f'entidades: {len(self.entity_list)}', COLOR_WHITE, (10, WIN_HEIGHT - 20))
 
             # Atualiza a tela
             pygame.display.flip()
@@ -132,4 +131,3 @@ class Level:
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
         self.window.blit(source=text_surf, dest=text_rect)
-
